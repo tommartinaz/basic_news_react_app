@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ArticleItem from './ArticleItem';
 import * as action_articles from '../actions/action_articles';
 import * as action_sources from '../actions/action_sources';
 
@@ -8,7 +9,7 @@ class ArticleList extends Component{
     constructor() {
         super();
         this.state={
-            source: []
+            source: ''
         }
     }
 
@@ -17,27 +18,22 @@ class ArticleList extends Component{
     }
 
     updateSource(e) {
-        console.log("EVENT", e.target.value)
         this.setState({
             source: e.target.value
         })
-        console.log("UPDATED STATE", this.state)
-        this.getArticles();
     }
 
     getArticles() {
-        console.log("THIS IN GETARTICLES", this.state)
         this.props.actions.fetch_articles('sources', this.state.source)
     }
 
     articleList() {
         return this.props.articles.map((article, index) => {
-            return <li key={index}>{article.title}</li>
+            return <ArticleItem key={index} article={article}></ArticleItem>
         })
     }
 
     sourceList() {
-        console.log("SOURCE_LIST", this.props)
         return this.props.sources.map((source, index) => {
             return <option key={index} value={source.id}>{source.id}</option>
         })
@@ -46,10 +42,11 @@ class ArticleList extends Component{
         return (
             <div>
                 Which source do you want to see? 
-                <select value={this.state.source} onChange={this.updateSource.bind(this)}>
+                <select value={this.state.source} name='source' onChange={this.updateSource.bind(this)}>
                     <option />
                     {this.sourceList()}
                 </select>
+                <button type='submit' onClick={() => {this.getArticles()}}>Submit</button>
                 {this.props.articles ? this.articleList() : null}
             </div>
         )
