@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { CardGroup } from 'reactstrap'
 import ArticleItem from './ArticleItem';
 import * as action_articles from '../actions/action_articles';
 import * as action_sources from '../actions/action_sources';
@@ -47,7 +48,7 @@ class ArticleList extends Component{
                     {this.sourceList()}
                 </select>
                 <button type='submit' onClick={() => {this.getArticles()}}>Submit</button>
-                {this.props.articles ? this.articleList() : null}
+                {this.props.articles ? <CardGroup>{this.articleList()}</CardGroup> : null}
             </div>
         )
     }

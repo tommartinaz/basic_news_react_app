@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, CardSubtitle, CardText, CardBody } from 'reactstrap';
+import { Card, CardTitle, CardSubtitle, CardText, CardImg, CardBody } from 'reactstrap';
 class ArticleItem extends Component{
     constructor() {
         super();
@@ -15,7 +15,8 @@ class ArticleItem extends Component{
     }
     render() {
         return (
-            <Card onClick={() => {this.toggleExpanded()}}>
+            <Card inverse={false} onClick={() => {this.toggleExpanded()}}>
+                <CardImg src={this.props.article.urlToImage} />
                 <CardBody>
                     <CardTitle>
                         {this.props.article.title}
